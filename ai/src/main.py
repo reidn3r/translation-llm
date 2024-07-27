@@ -18,6 +18,7 @@ def main(translator:Translator, argc:int, argv:'list[str]'):
         "target_language": output_lang,
         "translated_text": model_response
     }
+    print(container_response)
     return json.dumps(container_response)
     
 def build_input(argv):
