@@ -1,0 +1,16 @@
+version: '3.0'
+
+services:
+  translation_postgresql:
+    image: postgres
+    environment:
+      - POSTGRES_DB=translation_db
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+    ports:
+      - '5432:5432'
+    volumes:
+      - translations_data:/var/lib/postgresql/data
+
+volumes:
+  translations_data:
