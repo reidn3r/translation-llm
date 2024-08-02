@@ -1,10 +1,8 @@
 import redis
 
 class RedisClient:
-    def __init__(self, port:int):
-        self.port = port
-    
+    def __init__(self, port):
+        self.client = redis.StrictRedis(host='localhost', port=port, db=0, decode_responses=True)
+
     def create_client(self):
-        return redis.Redis(host='localhost', port=self.port, decode_responses=True)
-        
-    
+        return self.client
