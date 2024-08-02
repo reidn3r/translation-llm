@@ -1,23 +1,31 @@
 package model.translator.web.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import model.translator.web.DTO.ModelResponseDTO;
+import model.translator.web.DTO.TranslateInputDTO;
+import model.translator.web.infra.RedisManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import model.translator.web.DTO.ContainerResponseDTO;
-import model.translator.web.DTO.TranslateInputDTO;
-import model.translator.web.infra.DockerManager;
 
 @Service
 public class TranslationService {
 
     @Autowired
-    private DockerManager dockerManager;
+    private RedisManager redisManager;
 
-    public ContainerResponseDTO translate(TranslateInputDTO data) throws Exception {
-        String input_lang = data.input_language();
-        String output_lang = data.output_language();
-        String text = data.text();
+    @Autowired
+    private ObjectMapper objectMapper;
 
-        return dockerManager.run(input_lang, output_lang, text);
+    public ModelResponseDTO translate(TranslateInputDTO data) throws Exception {
+        System.out.println("translate data: " + data);
+        String data2string = objectMapper.writeValueAsString(data);
+
+
+        System.out.println("translate data string: " + data2string);
+        redisManager.publishOnQueue(data2string, "input_text::queue");
+        String output = redisManager.consumeQueue("output_text::queue");
+        System.out.println("translate redis output: " + output);
+
+        return  objectMapper.readValue(output, ModelResponseDTO.class);
     }
 }
