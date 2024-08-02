@@ -3,7 +3,7 @@ package model.translator.web.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
-import model.translator.web.DTO.ContainerResponseDTO;
+import model.translator.web.DTO.ModelResponseDTO;
 import model.translator.web.DTO.TranslateInputDTO;
 import model.translator.web.services.TranslationService;
 
@@ -21,9 +21,12 @@ public class TranslatorController {
     private TranslationService translation;
 
     @PostMapping("/translate")
-    public ResponseEntity<ContainerResponseDTO> translate(@Valid @RequestBody TranslateInputDTO data) throws Exception {
+    public ResponseEntity<ModelResponseDTO> translate(@Valid @RequestBody TranslateInputDTO data) throws Exception {
         try {
-            ContainerResponseDTO output = this.translation.translate(data);
+            System.out.println("controller data: " + data);
+            ModelResponseDTO output = this.translation.translate(data);
+
+            System.out.println("controller output: " + output);
             return ResponseEntity.ok().body(output);
         } catch (Exception e) {
             System.out.println(e.toString());
