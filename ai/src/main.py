@@ -1,34 +1,24 @@
 import os
-import sys
-import json
 from dotenv import load_dotenv
+from db.redis import RedisClient
 from llm.model import Translator
-from translate import translate
+from services.message import MessageService
+from services.translate import translate
+
 
 load_dotenv()
-def main(translator:Translator, argc:int, argv:'list[str]'):
-    if(argc < 4):
-        raise ValueError("Missing Arguments")
+def main(translator:Translator, redis:RedisClient, message:MessageService):
 
-    input_lang, output_lang, text = build_input(argv)
-    model_response = translate(translator, input_lang, output_lang, text)
+    message.process_message(translator, redis)
 
-    container_response = {
-        "input_language": input_lang,
-        "target_language": output_lang,
-        "translated_text": model_response
-    }
-    print(container_response)
-    return json.dumps(container_response)
-    
-def build_input(argv):
-    input_lang, output_lang = argv[1], argv[2]
-    text =  " ".join(argv[3:])
-    return input_lang, output_lang, text
+    pass
+
 
 if __name__ == "__main__":
     API_KEY = os.getenv("API_KEY")
+    
     translator = Translator(API_KEY)
+    redis = RedisClient(6379).create_client()
+    message_service = MessageService()
 
-    argv, argc = sys.argv, len(sys.argv)
-    main(translator, argc, argv)
+    main(translator, redis, message_service)
