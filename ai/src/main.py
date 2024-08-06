@@ -10,8 +10,6 @@ def main(translator:Translator, redis:RedisClient, message:MessageService):
 
     message.process_message(translator, redis)
 
-    pass
-
 
 if __name__ == "__main__":
     API_KEY = os.getenv("API_KEY")
