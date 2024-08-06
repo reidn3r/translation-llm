@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 from db.redis import RedisClient
 from llm.model import Translator
 from services.message import MessageService
-from services.translate import translate
 
 
 load_dotenv()
