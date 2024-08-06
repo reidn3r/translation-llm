@@ -7,6 +7,8 @@ import model.translator.web.infra.RedisManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+
 @Service
 public class TranslationService {
 
@@ -17,15 +19,13 @@ public class TranslationService {
     private ObjectMapper objectMapper;
 
     public ModelResponseDTO translate(TranslateInputDTO data) throws Exception {
-        System.out.println("translate data: " + data);
-        String data2string = objectMapper.writeValueAsString(data);
+        String input = objectMapper.writeValueAsString(data);
+        String key = "input::queue::" + Instant.now().toString();
 
+        redisManager.setData(input, key);
+        redisManager.publishOnQueue(key, "input_text::queue");
 
-        System.out.println("translate data string: " + data2string);
-        redisManager.publishOnQueue(data2string, "input_text::queue");
         String output = redisManager.consumeQueue("output_text::queue");
-        System.out.println("translate redis output: " + output);
-
         return  objectMapper.readValue(output, ModelResponseDTO.class);
     }
 }
