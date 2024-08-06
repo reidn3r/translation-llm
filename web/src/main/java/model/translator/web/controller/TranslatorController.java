@@ -23,11 +23,9 @@ public class TranslatorController {
     @PostMapping("/translate")
     public ResponseEntity<ModelResponseDTO> translate(@Valid @RequestBody TranslateInputDTO data) throws Exception {
         try {
-            System.out.println("controller data: " + data);
             ModelResponseDTO output = this.translation.translate(data);
-
-            System.out.println("controller output: " + output);
             return ResponseEntity.ok().body(output);
+
         } catch (Exception e) {
             System.out.println(e.toString());
             return ResponseEntity.status(500).body(null);
