@@ -25,7 +25,7 @@ public class TranslationService {
         redisManager.setData(input, key);
         redisManager.publishOnQueue(key, "input_text::queue");
 
-        String output = redisManager.consumeQueue("output_text::queue");
+        String output = redisManager.consumeQueue("output_text::queue" + key);
         return  objectMapper.readValue(output, ModelResponseDTO.class);
     }
 }
