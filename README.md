@@ -14,7 +14,7 @@
         "input_language": "Francês",
         "output_language": "Português",
         "text": "..."
-}
+    }
 
 ## Detalhes:
     1.0: Validação de dados de input são realizadas
