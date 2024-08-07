@@ -27,7 +27,6 @@ public class TranslatorController {
             return ResponseEntity.ok().body(output);
 
         } catch (Exception e) {
-            System.out.println(e.toString());
             return ResponseEntity.status(500).body(null);
         }
     }
