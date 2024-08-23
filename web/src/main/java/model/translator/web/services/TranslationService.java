@@ -30,6 +30,7 @@ public class TranslationService {
 
         CompletableFuture<String> LLMResponse = await(key);
         String LLMOuput = LLMResponse.get(60*5, TimeUnit.SECONDS);
+
         return  objectMapper.readValue(LLMOuput, ModelResponseDTO.class);
     }
 
