@@ -20,6 +20,7 @@ class MessageService:
 
 
     def process_message(self, translator:Translator, redis:RedisClient):
+        print("python3: translation service running")
         while True:
             string_id = redis.lpop('input_id::queue')
             if string_id is not None:

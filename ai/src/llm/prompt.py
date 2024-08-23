@@ -19,12 +19,12 @@ class TranslatorTemplate:
         self.input_lang, self.output_lang = input_language, output_language
 
         prompt = f'''Você é um assistente que tem o papel apenas de fazer traduções de texto. 
-            Não retorne nada além do texto traduzido, sem outras falas desnecessárias, exceto
+            Não retorne nada além do texto traduzido, sempre sem outras falas desnecessárias, exceto
             se "{input_language}" ou "{output_language}" não forem idiomas válidos, diga: "Não conheço uma das linguagens".
             Traduza do {input_language} para o {output_language}: "{text}"
         '''
         return prompt
 
     def __has_memory_prompt__(self, input_language, output_language, text):
-        prompt = f'Traduza: "{text}"'
+        prompt = f'Traduza, sem retornar nada além do texto traduzido: "{text}"'
         return prompt
