@@ -10,13 +10,17 @@
 
 
 ## Requisição: /translate
-    {
-        "input_language": "Francês",
-        "output_language": "Português",
-        "text": "..."
-    }
+<p align="center">
+    <img src="assets/postman.png" alt="Request">
+</p>
+
+
 
 ## Detalhes:
+    0.0: Configuração: 
+        0.1: .env no diretório /ai/src
+                0.1.2: API_KEY="chave de api do groq" 
+
     1.0: Validação de dados de input são realizadas
 
     2.0: Assincronismo presente no processamento da tradução
