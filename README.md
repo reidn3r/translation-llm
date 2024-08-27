@@ -1,39 +1,34 @@
-<h2 align="center"> Tradutor </h2>
-<p align="center">Tradução de Textos consumindo LLM (08/2024) </p>
+<h2 align="center"> Translator </h2>
+<p align="center">Text Translation Using LLM (08/2024)</p>
 
 <hr>
 
-### Arquitetura do Serviço de Tradução:
+### Translation Service Architecture:
 <p align="center">
     <img src="assets/translator-architecture.png" alt="Software Architecture">
 </p>
 
-
-## Requisição: /translate
+## Request: /translate
 <p align="center">
     <img src="assets/postman.png" alt="Request">
 </p>
 
+## Details:
+    0.0: Configuration: 
+        0.1: .env in the /ai/src directory
+                0.1.2: API_KEY="groq API key" 
 
+    1.0: Input data validation is performed
 
-## Detalhes:
-    0.0: Configuração: 
-        0.1: .env no diretório /ai/src
-                0.1.2: API_KEY="chave de api do groq" 
-
-    1.0: Validação de dados de input são realizadas
-
-    2.0: Assincronismo presente no processamento da tradução
+    2.0: Asynchronous translation processing
         - @Async
-        - Classe Genérica: CompletableFuture<T>
+        - Generic Class: CompletableFuture<T>
 
-    3.0: Dados armazenados em memória (Redis) possuem TTL
+    3.0: Data stored in memory (Redis) has TTL
 
-## Linkedin e Gmail
+## LinkedIn and Gmail
 <p align="center">
 
 [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/reidner-adnan-b19377210) 	[![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:rdn.adn00@gmail.com)
 
 </p>
-
-
